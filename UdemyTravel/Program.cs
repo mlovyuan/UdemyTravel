@@ -1,4 +1,6 @@
 
+using UdemyTravel.Services;
+
 namespace UdemyTravel
 {
     public class Program
@@ -10,6 +12,7 @@ namespace UdemyTravel
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddTransient<ITouristRouteRepository, MockTouristRouteRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
