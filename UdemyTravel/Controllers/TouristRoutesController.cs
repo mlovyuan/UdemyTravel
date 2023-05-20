@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using UdemyTravel.Services;
 
 namespace UdemyTravel.Controllers
 {
@@ -7,5 +7,17 @@ namespace UdemyTravel.Controllers
     [ApiController]
     public class TouristRoutesController : ControllerBase
     {
+        private ITouristRouteRepository _touristRouteRepository;
+
+        public TouristRoutesController(ITouristRouteRepository touristRouteRepository)
+        {
+            _touristRouteRepository = touristRouteRepository;
+        }
+
+        [HttpGet]
+        public IActionResult GetAllTouristRotes()
+        {
+            return Ok(_touristRouteRepository.GetAllTouristRoute());
+        }
     }
 }
