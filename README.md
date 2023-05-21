@@ -1,4 +1,4 @@
-### The project includes .NET7, code first EF, RESTful within HATEOAS, Docker
+### The project includes .NET7, model first EF, RESTful within HATEOAS, Docker
 ---
 
 * set up mssql with docker by using
