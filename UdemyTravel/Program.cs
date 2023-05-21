@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+using UdemyTravel.Database;
 using UdemyTravel.Services;
 
 namespace UdemyTravel
@@ -12,7 +14,12 @@ namespace UdemyTravel
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddTransient<ITouristRouteRepository, MockTouristRouteRepository>();
+            //builder.Services.AddTransient<ITouristRouteRepository, MockTouristRouteRepository>();
+            builder.Services.AddTransient<ITouristRouteRepository, TouristRouteRepository>();
+            builder.Services.AddDbContext<AppDbContext>(option =>
+            {
+                option.UseSqlServer(builder.Configuration["DbContext:ConnectionString"]);
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
