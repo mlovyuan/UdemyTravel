@@ -12,8 +12,8 @@ using UdemyTravel.Database;
 namespace UdemyTravel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230521144920_initialMigration")]
-    partial class initialMigration
+    [Migration("20230524145449_DataSedding")]
+    partial class DataSedding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,15 +46,12 @@ namespace UdemyTravel.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Features")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fees")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("OriginalPrice")

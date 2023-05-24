@@ -23,9 +23,9 @@ namespace UdemyTravel.Migrations
                     CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Features = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Fees = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Features = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Fees = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

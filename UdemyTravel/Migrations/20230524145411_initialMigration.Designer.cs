@@ -12,8 +12,8 @@ using UdemyTravel.Database;
 namespace UdemyTravel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230524043929_DataSedding")]
-    partial class DataSedding
+    [Migration("20230524145411_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,16 +68,6 @@ namespace UdemyTravel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TouristRoutes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0472d5b9-bda2-43b0-ada7-0f93875e9477"),
-                            CreateTime = new DateTime(2023, 5, 24, 4, 39, 29, 865, DateTimeKind.Utc).AddTicks(3466),
-                            Description = "SampleDescription",
-                            OriginalPrice = 0m,
-                            Title = "SampleTitle"
-                        });
                 });
 
             modelBuilder.Entity("UdemyTravel.Models.TouristRoutePicture", b =>

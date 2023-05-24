@@ -22,4 +22,5 @@ The command we do db migration and update(create) to local mssql:
  
 Add DataSeeding:
  1. `dotnet ef migrations add DataSedding`
- 2. `dotnet ef migrations add initialMigration`
+ 2. `dotnet ef database update`
+
