@@ -4,7 +4,7 @@
 #### Entity Framework
 * set up mssql with docker by using
 ```
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password@123" -p 1433:1433 --name sql -d mcr.microsoft.com/mssql/server:2022-latest
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password@123" -p 1433:1433 -v sqlvolume:/var/opt/mssql --name sql -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
 Within model first, we need to clarify business model and create models first.
@@ -20,3 +20,6 @@ The command we do db migration and update(create) to local mssql:
  2. `dotnet ef migrations add initialMigration`, will create sql query map to our models.
  3. `dotnet ef database update`, run sql query and create tables.
  
+Add DataSeeding:
+ 1. `dotnet ef migrations add DataSedding`
+ 2. `dotnet ef migrations add initialMigration`
