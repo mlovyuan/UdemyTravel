@@ -24,3 +24,6 @@ Add DataSeeding:
  1. `dotnet ef migrations add DataSedding`
  2. `dotnet ef database update`
 
+If we'd like to update schema to some tables in the db, just modify the model class and use command as `migrations` and `update`.
+
+
