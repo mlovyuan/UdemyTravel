@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using UdemyTravel.Database;
 using UdemyTravel.Services;
@@ -13,7 +14,14 @@ namespace UdemyTravel
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(setupAction =>
+            {
+                // setup need correct media type in header
+                setupAction.ReturnHttpNotAcceptable = true;
+                // add only output serializer
+                //setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            }).AddXmlDataContractSerializerFormatters();
+
             //builder.Services.AddTransient<ITouristRouteRepository, MockTouristRouteRepository>();
             builder.Services.AddTransient<ITouristRouteRepository, TouristRouteRepository>();
             builder.Services.AddDbContext<AppDbContext>(option =>
