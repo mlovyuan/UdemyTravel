@@ -20,10 +20,17 @@ The command we do db migration and update(create) to local mssql:
  2. `dotnet ef migrations add initialMigration`, will create sql query map to our models.
  3. `dotnet ef database update`, run sql query and create tables.
  
+When we'd like to insert mock data into our db from json file, we have to override `OnModelCreating` method in `AppDbContext` class,
+getting Assembly from bin file to load the data.
+
 Add DataSeeding:
  1. `dotnet ef migrations add DataSedding`
  2. `dotnet ef database update`
 
 If we'd like to update schema to some tables in the db, just modify the model class and use command as `migrations` and `update`.
 
+#### AutoMapper
+Install package: AutoMapper.Extensions.Microsoft.DependencyInjection
+
+Setup DI, scan and load all profile file into AppDomain, then add into AutoMapper.
 
