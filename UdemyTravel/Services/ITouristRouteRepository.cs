@@ -6,5 +6,7 @@ namespace UdemyTravel.Services
     {
         IEnumerable<TouristRoute> GetAllTouristRoute();
         TouristRoute GetTouristRoute(Guid touristRouteId);
+        bool TouristRouteExists(Guid touristRouteId);
+        IEnumerable<TouristRoutePicture> GetPicturesByTouristRouteId(Guid touristRouteId);
     }
 }

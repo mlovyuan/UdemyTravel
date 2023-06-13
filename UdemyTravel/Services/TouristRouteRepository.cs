@@ -21,5 +21,15 @@ namespace UdemyTravel.Services
         {
             return _context.TouristRoutes.FirstOrDefault(x => x.Id == touristRouteId);
         }
+
+        public bool TouristRouteExists(Guid touristRouteId)
+        {
+            return _context.TouristRoutes.Any(x => x.Id == touristRouteId);
+        }
+
+        public IEnumerable<TouristRoutePicture> GetPicturesByTouristRouteId(Guid touristRouteId)
+        {
+            return _context.TouristRoutePictures.Where(x => x.TouristRouteId == touristRouteId).ToList();
+        }
     }
 }
