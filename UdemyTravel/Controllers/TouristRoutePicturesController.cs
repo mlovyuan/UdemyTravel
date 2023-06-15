@@ -35,5 +35,21 @@ namespace UdemyTravel.Controllers
 
             return Ok(_mapper.Map<IEnumerable<TouristRoutePictureDto>>(touristRoutePictures));
         }
+
+        [HttpGet("{pictureId}")]
+        public IActionResult GetPicture(Guid touristRouteId, int pictureId)
+        {
+            // check parent table first, due to table's foreign key
+            if (!_touristRouteRepository.TouristRouteExists(touristRouteId))
+            {
+                return NotFound($"旅遊路線{touristRouteId}不存在");
+            }
+            var picture = _touristRouteRepository.GetPicture(pictureId);
+            if (picture is null)
+            {
+                return NotFound("照片不存在");
+            }
+            return Ok(_mapper.Map<TouristRoutePictureDto>(picture));
+        }
     }
 }

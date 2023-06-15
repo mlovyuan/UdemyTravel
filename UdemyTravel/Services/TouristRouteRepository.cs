@@ -31,5 +31,10 @@ namespace UdemyTravel.Services
         {
             return _context.TouristRoutePictures.Where(x => x.TouristRouteId == touristRouteId).ToList();
         }
+
+        public TouristRoutePicture GetPicture(int pictureId)
+        {
+            return _context.TouristRoutePictures.Where(x => x.Id == pictureId).FirstOrDefault();
+        }
     }
 }
