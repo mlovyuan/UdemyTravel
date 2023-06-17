@@ -20,7 +20,7 @@ namespace UdemyTravel.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet, HttpHead]
         public IActionResult GetAllTouristRotes()
         {
             var touristRoutes = _touristRouteRepository.GetAllTouristRoute();
@@ -33,7 +33,7 @@ namespace UdemyTravel.Controllers
             return Ok(touristRoutesDto);
         }
 
-        [HttpGet("{touristRouteId:Guid}")]
+        [HttpGet("{touristRouteId:Guid}"), HttpHead]
         public IActionResult GetTouristRotesById(Guid touristRouteId)
         {
             var touristRoute = _touristRouteRepository.GetTouristRoute(touristRouteId);
