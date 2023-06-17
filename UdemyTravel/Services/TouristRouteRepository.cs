@@ -1,4 +1,5 @@
-﻿using UdemyTravel.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using UdemyTravel.Database;
 using UdemyTravel.Models;
 
 namespace UdemyTravel.Services
@@ -14,12 +15,12 @@ namespace UdemyTravel.Services
 
         public IEnumerable<TouristRoute> GetAllTouristRoute()
         {
-            return _context.TouristRoutes;
+            return _context.TouristRoutes.Include(x => x.TouristRoutePictures);
         }
 
         public TouristRoute GetTouristRoute(Guid touristRouteId)
         {
-            return _context.TouristRoutes.FirstOrDefault(x => x.Id == touristRouteId);
+            return _context.TouristRoutes.Include(x => x.TouristRoutePictures).FirstOrDefault(x => x.Id == touristRouteId);
         }
 
         public bool TouristRouteExists(Guid touristRouteId)
