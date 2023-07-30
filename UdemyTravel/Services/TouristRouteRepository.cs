@@ -13,7 +13,7 @@ namespace UdemyTravel.Services
             this._context = context;
         }
 
-        public IEnumerable<TouristRoute> GetAllTouristRoute(string keyword, string ratingOperator, int ratingValue)
+        public IEnumerable<TouristRoute> GetAllTouristRoute(string keyword, string ratingOperator, int? ratingValue)
         {
             IQueryable<TouristRoute> result = _context.TouristRoutes.Include(x => x.TouristRoutePictures);
             if (!string.IsNullOrWhiteSpace(keyword))
