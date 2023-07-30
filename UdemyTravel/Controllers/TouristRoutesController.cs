@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.RegularExpressions;
 using UdemyTravel.DTOs;
 using UdemyTravel.Models;
 using UdemyTravel.Services;
@@ -21,9 +22,19 @@ namespace UdemyTravel.Controllers
         }
 
         [HttpGet, HttpHead]
-        public IActionResult GetAllTouristRotes()
+        public IActionResult GetAllTouristRotes([FromQuery] string keyword, string rating)
         {
-            var touristRoutes = _touristRouteRepository.GetAllTouristRoute();
+            Regex regex = new Regex(@"([A-Za-z0-9\-]+)(\d+)");
+            string operatorType = "";
+            int ratingValue = -1;
+            Match match = regex.Match(rating);
+            if (match.Success)
+            {
+                operatorType = match.Groups[1].Value;
+                ratingValue = Int32.Parse(match.Groups[2].Value);
+            }
+
+            var touristRoutes = _touristRouteRepository.GetAllTouristRoute(keyword, operatorType, ratingValue);
 
             if (touristRoutes.IsNullOrEmpty())
             {

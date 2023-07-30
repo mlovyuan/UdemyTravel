@@ -13,9 +13,24 @@ namespace UdemyTravel.Services
             this._context = context;
         }
 
-        public IEnumerable<TouristRoute> GetAllTouristRoute()
+        public IEnumerable<TouristRoute> GetAllTouristRoute(string keyword, string ratingOperator, int ratingValue)
         {
-            return _context.TouristRoutes.Include(x => x.TouristRoutePictures);
+            IQueryable<TouristRoute> result = _context.TouristRoutes.Include(x => x.TouristRoutePictures);
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                keyword = keyword.Trim();
+                result.Where(x => x.Title.Contains(keyword));
+            }
+            if (ratingValue >= 0)
+            {
+                result = ratingOperator switch
+                {
+                    "largerThan" => result.Where(x => x.Rating >= ratingValue),
+                    "lessThan" => result.Where(x => x.Rating <= ratingValue),
+                    _ => result.Where(x => x.Rating == ratingValue),
+                };
+            }
+            return result.ToList();
         }
 
         public TouristRoute GetTouristRoute(Guid touristRouteId)
