@@ -1,6 +1,9 @@
 
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using UdemyTravel.Database;
 using UdemyTravel.Services;
 
@@ -20,7 +23,25 @@ namespace UdemyTravel
                 setupAction.ReturnHttpNotAcceptable = true;
                 // add only output serializer
                 //setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-            }).AddXmlDataContractSerializerFormatters();
+            }).AddXmlDataContractSerializerFormatters()
+            .ConfigureApiBehaviorOptions(setupAction =>
+            {
+                setupAction.InvalidModelStateResponseFactory = context =>
+                {
+                    var validationProblemDetails = new ValidationProblemDetails(context.ModelState)
+                    {
+                        Title = "Data validate Error",
+                        Status = StatusCodes.Status422UnprocessableEntity,
+                        Detail = "plz inspect details",
+                        Instance = context.HttpContext.Request.Path
+                    };
+                    validationProblemDetails.Extensions.Add("traceId", context.HttpContext.TraceIdentifier);
+                    return new UnprocessableEntityObjectResult(validationProblemDetails)
+                    {
+                        ContentTypes = { "applications/problem+json" }
+                    };
+                };
+            });
 
             //builder.Services.AddTransient<ITouristRouteRepository, MockTouristRouteRepository>();
             builder.Services.AddTransient<ITouristRouteRepository, TouristRouteRepository>();
