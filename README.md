@@ -30,7 +30,13 @@ Add DataSeeding:
 If we'd like to update schema to some tables in the db, just modify the model class and use command as `migrations` and `update`.
 
 #### AutoMapper
-Install package: AutoMapper.Extensions.Microsoft.DependencyInjection
+ - Install package: AutoMapper.Extensions.Microsoft.DependencyInjection
 
-Setup DI, scan and load all profile file into AppDomain, then add into AutoMapper.
+ - Setup DI, scan and load all profile file into `AppDomain`, then add into `AutoMapper`.
 
+#### Make my own validation rule
+Choose one of below to do:
+ - Implement `IValidatableObject` on DTO object, then we can use property to verify frontend's request when we implement `validate` method.
+ - Create Attribure, implement `ValidationAttribute` and override `IsValid` method.
+
+Can also add `ConfigureApiBehaviorOptions` in  to adjust api response if we recieve data which violats the customized rule.
