@@ -23,6 +23,12 @@ namespace UdemyTravel.Profiles
                     destinationMember => destinationMember.DepartureCity,
                     opt => opt.MapFrom(sourceMember => sourceMember.DepartureCity.ToString())
                 );
+
+            CreateMap<TouristRouteForCreationDto, TouristRoute>()
+                .ForMember(
+                    destinationMember => destinationMember.Id,
+                    opt => opt.MapFrom(sourceMember => Guid.NewGuid())
+                );
         }
     }
 }

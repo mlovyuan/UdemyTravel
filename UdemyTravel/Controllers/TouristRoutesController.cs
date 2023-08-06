@@ -37,8 +37,8 @@ namespace UdemyTravel.Controllers
             return Ok(touristRoutesDto);
         }
 
-        [HttpGet("{touristRouteId:Guid}"), HttpHead]
-        public IActionResult GetTouristRotesById(Guid touristRouteId)
+        [HttpGet("{touristRouteId:Guid}", Name = "GetTouristRoutesById")]
+        public IActionResult GetTouristRoutesById(Guid touristRouteId)
         {
             var touristRoute = _touristRouteRepository.GetTouristRoute(touristRouteId);
 
@@ -49,6 +49,16 @@ namespace UdemyTravel.Controllers
 
             var touristRouteDto = _mapper.Map<TouristRouteDto>(touristRoute);
             return Ok(touristRouteDto);
+        }
+
+        [HttpPost]
+        public IActionResult createTouristRoute([FromBody] TouristRouteForCreationDto touristRouteForCreationDto)
+        {
+            var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteForCreationDto);
+            _touristRouteRepository.AddTouristRoute(touristRouteModel);
+            _touristRouteRepository.Save();
+            var touristRouteDto = _mapper.Map<TouristRouteDto>(touristRouteModel);
+            return CreatedAtRoute("GetTouristRoutesById", new { touristRouteId = touristRouteDto.Id }, touristRouteDto);
         }
     }
 }

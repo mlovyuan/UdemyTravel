@@ -50,7 +50,21 @@ namespace UdemyTravel.Services
 
         public TouristRoutePicture GetPicture(int pictureId)
         {
-            return _context.TouristRoutePictures.Where(x => x.Id == pictureId).FirstOrDefault();
+             return _context.TouristRoutePictures.Where(x => x.Id == pictureId).FirstOrDefault();
+        }
+
+        public void AddTouristRoute(TouristRoute touristRoute)
+        {
+            if (touristRoute == null)
+            {
+                throw new ArgumentNullException(nameof(touristRoute));
+            }
+            _context.TouristRoutes.Add(touristRoute);
+        }
+
+        public bool Save()
+        {
+            return _context.SaveChanges() >= 0;
         }
     }
 }
