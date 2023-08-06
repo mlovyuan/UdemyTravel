@@ -50,7 +50,7 @@ namespace UdemyTravel.Services
 
         public TouristRoutePicture GetPicture(int pictureId)
         {
-             return _context.TouristRoutePictures.Where(x => x.Id == pictureId).FirstOrDefault();
+            return _context.TouristRoutePictures.Where(x => x.Id == pictureId).FirstOrDefault();
         }
 
         public void AddTouristRoute(TouristRoute touristRoute)
@@ -60,6 +60,21 @@ namespace UdemyTravel.Services
                 throw new ArgumentNullException(nameof(touristRoute));
             }
             _context.TouristRoutes.Add(touristRoute);
+        }
+
+        public void AddTouristRoutePicture(Guid touristRouteId, TouristRoutePicture touristRoutePicture)
+        {
+            if (touristRouteId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(touristRouteId));
+            }
+            if (touristRoutePicture == null)
+            {
+                throw new ArgumentNullException(nameof(touristRoutePicture));
+            }
+
+            touristRoutePicture.TouristRouteId = touristRouteId;
+            _context.TouristRoutePictures.Add(touristRoutePicture);
         }
 
         public bool Save()

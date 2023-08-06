@@ -52,7 +52,7 @@ namespace UdemyTravel.Controllers
         }
 
         [HttpPost]
-        public IActionResult createTouristRoute([FromBody] TouristRouteForCreationDto touristRouteForCreationDto)
+        public IActionResult CreateTouristRoute([FromBody] TouristRouteForCreationDto touristRouteForCreationDto)
         {
             var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteForCreationDto);
             _touristRouteRepository.AddTouristRoute(touristRouteModel);
