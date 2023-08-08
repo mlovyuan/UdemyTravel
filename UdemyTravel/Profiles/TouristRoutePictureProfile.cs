@@ -10,6 +10,7 @@ namespace UdemyTravel.Profiles
         {
             CreateMap<TouristRoutePicture, TouristRoutePictureDto>();
             CreateMap<TouristRoutePictureForCreationDto, TouristRoutePicture>();
+            CreateMap<TouristRoutePicture, TouristRoutePictureForCreationDto>();
         }
     }
 }

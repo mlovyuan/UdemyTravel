@@ -31,6 +31,7 @@ namespace UdemyTravel.Profiles
                 );
 
             CreateMap<TouristRouteForUpdateDto, TouristRoute>();
+            CreateMap<TouristRoute, TouristRouteForUpdateDto>();
         }
     }
 }

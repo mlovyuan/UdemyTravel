@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Text.RegularExpressions;
 using UdemyTravel.DTOs;
 using UdemyTravel.Models;
 using UdemyTravel.ResourceParameters;
@@ -74,6 +74,28 @@ namespace UdemyTravel.Controllers
             var touristRouteFromRepo = _touristRouteRepository.GetTouristRoute(touristRouteId);
             _mapper.Map(touristRouteForUpdateDto, touristRouteFromRepo);
             // above line ady update repo model from Dto since EF and context, so only need to save below directly
+            _touristRouteRepository.Save();
+            return NoContent();
+        }
+
+        [HttpPut("{touristRouteId:Guid}")]
+        public IActionResult PartiallyUpdateTouristRoute([FromRoute] Guid touristRouteId,
+            [FromBody] JsonPatchDocument<TouristRouteForUpdateDto> patchDocument)
+        {
+            if (!_touristRouteRepository.TouristRouteExists(touristRouteId))
+            {
+                return NotFound($"旅遊路線{touristRouteId}不存在");
+            }
+            var touristRouteFromRepo = _touristRouteRepository.GetTouristRoute(touristRouteId);
+            var touristRouteToPatch = _mapper.Map<TouristRouteForUpdateDto>(touristRouteFromRepo);
+            patchDocument.ApplyTo(touristRouteToPatch, ModelState);
+            if (!TryValidateModel(touristRouteToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+
+            _mapper.Map(touristRouteToPatch, touristRouteFromRepo);
             _touristRouteRepository.Save();
             return NoContent();
         }

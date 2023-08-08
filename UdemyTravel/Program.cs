@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using UdemyTravel.Database;
 using UdemyTravel.Services;
 
@@ -21,9 +22,14 @@ namespace UdemyTravel
             {
                 // setup need correct media type in header
                 setupAction.ReturnHttpNotAcceptable = true;
-                // add only output serializer
-                //setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-            }).AddXmlDataContractSerializerFormatters()
+                
+            }).AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver= new CamelCasePropertyNamesContractResolver();
+            })
+            // add only output serializer
+            //setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            .AddXmlDataContractSerializerFormatters()
             .ConfigureApiBehaviorOptions(setupAction =>
             {
                 setupAction.InvalidModelStateResponseFactory = context =>
