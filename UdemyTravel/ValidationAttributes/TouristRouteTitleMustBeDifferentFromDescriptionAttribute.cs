@@ -7,8 +7,8 @@ namespace UdemyTravel.ValidationAttributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var touristRouteForCreationDto = (TouristRouteForCreationDto)validationContext.ObjectInstance;
-            if (touristRouteForCreationDto.Title == touristRouteForCreationDto.Description)
+            var touristRouteDto = (TouristRouteForManipulationDto)validationContext.ObjectInstance;
+            if (touristRouteDto.Title == touristRouteDto.Description)
             {
                 return new ValidationResult(
                     "Title and Description should be different.",

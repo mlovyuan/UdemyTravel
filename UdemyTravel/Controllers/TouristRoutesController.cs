@@ -58,7 +58,24 @@ namespace UdemyTravel.Controllers
             _touristRouteRepository.AddTouristRoute(touristRouteModel);
             _touristRouteRepository.Save();
             var touristRouteDto = _mapper.Map<TouristRouteDto>(touristRouteModel);
+
+            // this method will add Location property in the response headers and we can use the value to consume GetTouristRoutesById endpoint directly
             return CreatedAtRoute("GetTouristRoutesById", new { touristRouteId = touristRouteDto.Id }, touristRouteDto);
+        }
+
+        [HttpPut("{touristRouteId:Guid}")]
+        public IActionResult UpdateTouristRoute([FromRoute] Guid touristRouteId, [FromBody] TouristRouteForUpdateDto touristRouteForUpdateDto)
+        {
+            if (!_touristRouteRepository.TouristRouteExists(touristRouteId))
+            {
+                return NotFound($"旅遊路線{touristRouteId}不存在");
+            }
+
+            var touristRouteFromRepo = _touristRouteRepository.GetTouristRoute(touristRouteId);
+            _mapper.Map(touristRouteForUpdateDto, touristRouteFromRepo);
+            // above line ady update repo model from Dto since EF and context, so only need to save below directly
+            _touristRouteRepository.Save();
+            return NoContent();
         }
     }
 }

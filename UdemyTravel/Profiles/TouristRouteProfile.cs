@@ -29,6 +29,8 @@ namespace UdemyTravel.Profiles
                     destinationMember => destinationMember.Id,
                     opt => opt.MapFrom(sourceMember => Guid.NewGuid())
                 );
+
+            CreateMap<TouristRouteForUpdateDto, TouristRoute>();
         }
     }
 }
