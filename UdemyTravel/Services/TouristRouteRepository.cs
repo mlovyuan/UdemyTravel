@@ -55,7 +55,7 @@ namespace UdemyTravel.Services
 
         public void AddTouristRoute(TouristRoute touristRoute)
         {
-            if (touristRoute == null)
+            if (touristRoute is null)
             {
                 throw new ArgumentNullException(nameof(touristRoute));
             }
@@ -68,7 +68,7 @@ namespace UdemyTravel.Services
             {
                 throw new ArgumentNullException(nameof(touristRouteId));
             }
-            if (touristRoutePicture == null)
+            if (touristRoutePicture is null)
             {
                 throw new ArgumentNullException(nameof(touristRoutePicture));
             }
